@@ -1,7 +1,12 @@
 
 import styles from './app.module.css';
+import {useState} from 'react';
 
 export const App = () => {
+	const [value, setValue] = useState("");
+	const [list, setList] = useState([]);
+	const [error, setError] = useState('');
+	
 	return (
 		<div className={styles.app}>
 			<h1 className={styles["page-heading"]}>Ввод значения</h1>
