@@ -9,8 +9,13 @@ export const App = () => {
 
 	const onInputButtonClick = () => {
 		let promptValue = prompt("Введите значение");
-		setValue(promptValue);
-		console.log(promptValue);
+		if (promptValue.length < 3) {
+			setError('Введенное значение должно содержать минимум 3 символа');
+		}else {
+			setValue(promptValue);
+			setError('');
+		}
+				
 	};
 
 	return (
@@ -20,9 +25,7 @@ export const App = () => {
 				Текущее значение <code>value</code>: "
 				<output className={styles['current-value']}>{value}</output>"
 			</p>
-			<div className={styles.error}>
-				Введенное значение должно содержать минимум 3 символа
-			</div>
+			{error!=='' && <div className={styles.error}> {error} </div>}
 			<div className={styles['buttons-container']}>
 				<button className={styles.button} onClick={onInputButtonClick}>
 					Ввести новое
