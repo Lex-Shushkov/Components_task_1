@@ -9,14 +9,18 @@ export const App = () => {
 
 	const onInputButtonClick = () => {
 		let promptValue = prompt('Введите значение');
-		if (promptValue.length < 3) {
-			setError('Введенное значение должно содержать минимум 3 символа');
-			setIsValueVaild(false);
-		} else {
-			setValue(promptValue);
-			setError('');
-			setIsValueVaild(true);
-		}
+		if (promptValue !== null) {
+			if (promptValue.length > 3) {
+				setValue(promptValue);
+				setError('');
+				setIsValueVaild(true);
+				console.log(list);
+			} else {
+				setError('Введенное значение должно содержать минимум 3 символа');
+				setIsValueVaild(false);
+			}
+		}else {console.log(list)};
+		
 	};
 
 	const onAddButtonClick = () => {
@@ -52,15 +56,13 @@ export const App = () => {
 			</div>
 			<div className={styles['list-container']}>
 				<h2 className={styles['list-heading']}>Список:</h2>
-				<p className={styles['no-margin-text']}>Нет добавленных элементов</p>
+				{list.length === 0 && <p className={styles['no-margin-text']}>Нет добавленных элементов</p>}
 				<ul className={styles.list}>
 					{list.map((item) => (
 						<li key={item.id} className={styles['list-item']}>
 							{item.value}
 						</li>
 					))}
-
-					{/* <li className={styles['list-item']}>Первый элемент</li> */}
 				</ul>
 			</div>
 		</div>
