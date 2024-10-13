@@ -1,21 +1,22 @@
-
 import styles from './app.module.css';
-import {useState} from 'react';
+import { useState } from 'react';
 
 export const App = () => {
-	const [value, setValue] = useState("");
+	const [value, setValue] = useState('');
 	const [list, setList] = useState([]);
 	const [error, setError] = useState('');
+	const [isValueVaild, setIsValueVaild] = useState();
 
 	const onInputButtonClick = () => {
-		let promptValue = prompt("Введите значение");
+		let promptValue = prompt('Введите значение');
 		if (promptValue.length < 3) {
 			setError('Введенное значение должно содержать минимум 3 символа');
-		}else {
+			setIsValueVaild(false);
+		} else {
 			setValue(promptValue);
 			setError('');
+			setIsValueVaild(true);
 		}
-				
 	};
 
 	return (
@@ -25,12 +26,12 @@ export const App = () => {
 				Текущее значение <code>value</code>: "
 				<output className={styles['current-value']}>{value}</output>"
 			</p>
-			{error!=='' && <div className={styles.error}> {error} </div>}
+			{error !== '' && <div className={styles.error}> {error} </div>}
 			<div className={styles['buttons-container']}>
 				<button className={styles.button} onClick={onInputButtonClick}>
 					Ввести новое
 				</button>
-				<button className={styles.button} disabled>
+				<button className={styles.button} disabled={!isValueVaild}>
 					Добавить в список
 				</button>
 			</div>
